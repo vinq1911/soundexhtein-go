@@ -13,7 +13,7 @@ func Latvian(name []byte) Code {
 }
 
 var latvianConfig = langEncoder{
-	firstLetter: latvianFirstLetter,
+	firstLetter: runeToBaseLetter,
 	isVowel:     latvianVowelCheck,
 	digit:       latvianDigitFn,
 	rules: []encoderRule{
@@ -70,33 +70,3 @@ func latvianVowelCheck(r rune) bool {
 	return false
 }
 
-func latvianFirstLetter(r rune) byte {
-	switch r {
-	case 'Ā':
-		return 'A'
-	case 'Ē':
-		return 'E'
-	case 'Ī':
-		return 'I'
-	case 'Ū':
-		return 'U'
-	case 'Č':
-		return 'C'
-	case 'Š':
-		return 'S'
-	case 'Ž':
-		return 'Z'
-	case 'Ģ':
-		return 'G'
-	case 'Ķ':
-		return 'K'
-	case 'Ļ':
-		return 'L'
-	case 'Ņ':
-		return 'N'
-	}
-	if r >= 'A' && r <= 'Z' {
-		return byte(r)
-	}
-	return '?'
-}

@@ -1,5 +1,6 @@
 package soundex
 
+// amimica-ignore: init boilerplate shared with American/Metaphone is structurally similar but uses different rules
 // Cologne computes the Cologne phonetic code for the given name.
 // Optimized for German names. Zero allocations.
 func Cologne(name []byte) Code {

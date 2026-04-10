@@ -50,6 +50,7 @@ func Unpack(p PackedCode) Code {
 	return c
 }
 
+// amimica-ignore: shares structure with myersBitParallel but operates on packed uint32, not byte slices
 // PackDistance computes the Levenshtein distance between two PackedCodes
 // using a bit-parallel approach. For 4-byte codes this is extremely fast.
 func PackDistance(a, b PackedCode) int {
@@ -110,6 +111,7 @@ func packedLen(v uint32) int {
 	return n
 }
 
+// amimica-ignore: shares structure with PackDistance but this is the general byte-slice implementation
 // myersBitParallel computes Levenshtein distance using Myers' bit-parallel algorithm.
 // Optimal when len(b) <= 64 (fits in one machine word).
 func myersBitParallel(a, b []byte) int {

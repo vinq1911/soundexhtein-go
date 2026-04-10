@@ -30,6 +30,7 @@ type langEncoder struct {
 	rules []encoderRule
 }
 
+// amimica-ignore: buffer init similar to Finnish() but Finnish encodes vowels differently and cannot use the generic loop
 // encodeWithConfig runs the generic encoding loop with language-specific config.
 // Produces a Code [8]byte (up to 7 phonetic digits). Zero allocations.
 //
@@ -119,25 +120,5 @@ func encodeWithConfig(name []byte, cfg *langEncoder) Code {
 	return c
 }
 
-// --- Shared helper for Scandinavian languages ---
-
-// scandFirstLetter maps the first rune to an ASCII byte for Scandinavian codes.
-// Shared by Swedish, Norwegian, and Danish.
-func scandFirstLetter(r rune) byte {
-	switch r {
-	case 'Ä', 'Æ':
-		return 'A'
-	case 'Ö', 'Ø':
-		return 'O'
-	case 'Å':
-		return 'A'
-	case 'Ü':
-		return 'U'
-	case 'Õ':
-		return 'O'
-	}
-	if r >= 'A' && r <= 'Z' {
-		return byte(r)
-	}
-	return '?'
-}
+// scandFirstLetter is an alias for runeToBaseLetter, used by Scandinavian configs.
+var scandFirstLetter = runeToBaseLetter

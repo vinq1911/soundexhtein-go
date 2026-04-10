@@ -37,55 +37,10 @@ type FullCodePair struct {
 }
 
 // FullDistance computes Levenshtein distance between two FullCodes.
-// Uses single-row DP with a fixed [64]int array. Zero allocations.
+// Uses the shared levenshtein core with a [64]int row buffer. Zero allocations.
 func FullDistance(a, b FullCode) int {
-	aLen := int(a[0])
-	bLen := int(b[0])
-
-	if aLen == 0 {
-		return bLen
-	}
-	if bLen == 0 {
-		return aLen
-	}
-
-	aData := a[1 : 1+aLen]
-	bData := b[1 : 1+bLen]
-	if aLen > bLen {
-		aData, bData = bData, aData
-		aLen, bLen = bLen, aLen
-	}
-
 	var row [64]int
-	for j := 1; j <= bLen; j++ {
-		row[j] = j
-	}
-
-	for i := 1; i <= aLen; i++ {
-		prev := i - 1
-		row[0] = i
-		ai := aData[i-1]
-
-		for j := 1; j <= bLen; j++ {
-			cost := 1
-			if ai == bData[j-1] {
-				cost = 0
-			}
-
-			val := row[j] + 1
-			if ins := row[j-1] + 1; ins < val {
-				val = ins
-			}
-			if sub := prev + cost; sub < val {
-				val = sub
-			}
-
-			prev = row[j]
-			row[j] = val
-		}
-	}
-
-	return row[bLen]
+	return levenshtein(a.Bytes(), b.Bytes(), row[:])
 }
 
 // FullSoundexDistance encodes both words fully, returns Levenshtein distance.

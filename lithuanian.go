@@ -13,7 +13,7 @@ func Lithuanian(name []byte) Code {
 }
 
 var lithuanianConfig = langEncoder{
-	firstLetter: lithuanianFirstLetter,
+	firstLetter: runeToBaseLetter,
 	isVowel:     lithuanianVowelCheck,
 	digit:       lithuanianDigitFn,
 	rules: []encoderRule{
@@ -64,29 +64,3 @@ func lithuanianVowelCheck(r rune) bool {
 	return false
 }
 
-func lithuanianFirstLetter(r rune) byte {
-	switch r {
-	case 'Ą':
-		return 'A'
-	case 'Ę':
-		return 'E'
-	case 'Ė':
-		return 'E'
-	case 'Į':
-		return 'I'
-	case 'Ų':
-		return 'U'
-	case 'Ū':
-		return 'U'
-	case 'Č':
-		return 'C'
-	case 'Š':
-		return 'S'
-	case 'Ž':
-		return 'Z'
-	}
-	if r >= 'A' && r <= 'Z' {
-		return byte(r)
-	}
-	return '?'
-}

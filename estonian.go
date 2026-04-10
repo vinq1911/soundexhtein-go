@@ -13,7 +13,7 @@ func Estonian(name []byte) Code {
 }
 
 var estonianConfig = langEncoder{
-	firstLetter: estonianFirstLetter,
+	firstLetter: runeToBaseLetter,
 	isVowel:     estonianVowelCheck,
 	digit:       estonianDigitFn,
 	rules:       nil, // no special digraphs
@@ -55,23 +55,3 @@ func estonianVowelCheck(r rune) bool {
 	return false
 }
 
-func estonianFirstLetter(r rune) byte {
-	switch r {
-	case 'Ä':
-		return 'A'
-	case 'Ö':
-		return 'O'
-	case 'Ü':
-		return 'U'
-	case 'Õ':
-		return 'O'
-	case 'Š':
-		return 'S'
-	case 'Ž':
-		return 'Z'
-	}
-	if r >= 'A' && r <= 'Z' {
-		return byte(r)
-	}
-	return '?'
-}

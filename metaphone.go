@@ -1,5 +1,6 @@
 package soundex
 
+// amimica-ignore: init boilerplate shared with American/Cologne is structurally similar but uses different rules
 // Metaphone computes a simplified Metaphone code (max 4 characters).
 // Zero allocations.
 func Metaphone(name []byte) Code {

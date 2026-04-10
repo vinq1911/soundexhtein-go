@@ -1,5 +1,6 @@
 package soundex
 
+// amimica-ignore: init boilerplate shared with Cologne/Metaphone is structurally similar but uses different tables and code lengths
 // American computes the American Soundex code for the given name.
 // Returns a 4-character code (1 letter + 3 digits). Zero allocations.
 func American(name []byte) Code {

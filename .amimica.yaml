@@ -1,0 +1,12 @@
+version: 1
+
+analysis:
+  normalization_level: strong
+  min_statements: 3
+  min_lines: 6
+
+scoring:
+  min_score: 0.15
+
+paths:
+  include_tests: false
